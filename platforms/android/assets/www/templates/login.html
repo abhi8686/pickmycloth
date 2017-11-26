@@ -1,0 +1,19 @@
+<ion-view view-title="Login" name="login-view">
+  <ion-content class="padding absolute-center" style="overflow: hidden; background-color: #f2f2f2;">
+  	<div class="padding">
+  		<div class="padding" align="center">
+  			<h1>PickMyCloth</h1>
+  		</div>
+
+      <div class="list list-inset">
+          <label class="item item-input">
+              <input type="text" placeholder="Username" ng-model="data.username" name="username">
+          </label>
+          <label class="item item-input padding">
+              <input type="password" placeholder="Password" ng-model="data.password" name="passwords">
+          </label>
+      </div>
+      <button class="btn btn-block btn-primary" ng-click="login()">Login</button>
+    </div>
+  </ion-content>
+</ion-view>

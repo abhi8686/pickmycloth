@@ -1,0 +1,56 @@
+/* Empty. Add your own CSS if you like */
+@font-face {
+    font-family: "pn-light";
+    src: url("pn-light.otf") format("opentype");
+}
+@font-face {
+    font-family: "pn-c-light";
+    src: url("pn-c-light.otf") format("opentype");
+}
+
+body{
+	font-family: "pn-light" !important;
+}
+
+.absolute-center{
+ display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.card, .list-inset {
+    overflow: hidden;
+    margin: 0px 10px;
+    border-radius: 2px;
+    background-color: #fff;
+
+    }
+
+.no-margin{
+	margin: 0px !important;
+}
+
+.bg-lgreen{
+	background-color: #00B594 !important;
+}
+.bg-orange{
+	background-color: #FFAA5A !important;
+}
+
+.bg-red{
+	background-color: #F74A63 !important;
+}
+.bg-lblue{
+	background-color: #00C7C8 !important;
+}
+.bg-blue{
+	background-color: #0081C4 !important;
+}
+
+.item{
+	color: #fff !important;
+}
+
+p{
+	color: #fff !important;
+}
