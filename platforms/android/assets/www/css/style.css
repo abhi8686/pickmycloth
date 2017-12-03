@@ -54,3 +54,8 @@ body{
 p{
 	color: #fff !important;
 }
+
+.item-content span {
+
+color: #000;
+}

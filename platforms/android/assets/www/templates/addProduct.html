@@ -1,0 +1,120 @@
+<ion-view>
+  <ion-content>
+  	<div class="padding" style="color: #000 !important">
+  		<h2>Add Product</h2>
+	 		<div class="list">
+	 		  <label class="item item-input item-stacked-label">
+	 		    <input type="text" ng-model="title" placeholder="Product Name">
+	 		  </label>
+
+	 		  <label class="item item-input item-stacked-label">
+	 		    <textarea placeholder="Product Description" ng-model="discription" rows="8" cols="10" style="color: #000 "></textarea>
+	 		  </label>
+	 		  <label class="item item-input item-stacked-label">
+	 		    <input type="number" ng-model="quantity" placeholder="quanity">
+	 		  </label>
+	 		  <label class="item item-input item-stacked-label">
+	 		    <input type="number" ng-model="original_price" placeholder="Original Price">
+	 		  </label>
+	 		  <label class="item item-input item-stacked-label">
+	 		    <input type="number" ng-model="discount_price" placeholder="Discount Price">
+	 		  </label>
+
+	 		  <label class="item item-input item-stacked-label">
+	 		    <ion-checkbox class="bulk-upload"  ng-model='bulkUpload' >Bulk Upload </ion-checkbox>
+	 		  </label>
+
+	 		  <label class="item item-input item-stacked-label">
+	 		    <ion-checkbox class="measurement" ng-model='measurments' checked="false">Measurments</ion-checkbox>
+	 		  </label>
+
+	 		 	<label class="item item-input item-stacked-label">
+          <input type="file" multiple="multiple" file-input="files" class="input-xlarge" onchange="angular.element(this).scope().imageUpload(event)"/>
+	 		  </label>
+	 		  <div id="previewImg">
+	 		  </div>
+	 		  <h3>Categories</h3>
+	 		  <div>
+	 		  	<h4 style="color: #000 !important;">Main Category</h4>
+	 		  	<div class="list-item" ng-repeat="item in main_category">
+	 		  		<ion-checkbox value="{{main_category['category_id']}}" ng-model="category_s" ng-change="get_subcategories(this)" >{{item["category_name"]}} </ion-checkbox>
+	 		  	</div>
+	 		  </div>
+
+
+	 		  <h3>Sub Category</h3>
+	 		  <div>
+	 		  	<div class="list-item" ng-repeat="item in sub_category">
+	 		  		<ion-checkbox ng-model="category_ss" ng-change="get_sscategories(this)" >{{item["category_name"]}} </ion-checkbox>
+	 		  	</div>
+	 		  </div>
+
+
+	 		  <h3>Sub Sub Category</h3>
+	 		  <div>
+	 		  	<div class="list-item" ng-repeat="item in ss_category">
+	 		  		<ion-checkbox ng-model="category_sss" ng-change="set_ssscategory(this)" >{{item["category_name"]}} </ion-checkbox>
+	 		  	</div>
+	 		  </div>
+	 		  <h3>Attributes</h3>
+	 		  <div class="list" style="color: #000 !important;">
+	 		  	<h4 style="color: #000 !important;">Size</h4>
+	 		  	<div class="list-item size-input" ng-repeat="item in size_attr">
+
+	 						<p style="display: none">{{a = item["attribute_id"]}}	  		</p>
+		 		  	<ion-checkbox  ng-model='order[a]' ng-change="format()" >{{item["attribute_name"]}} </ion-checkbox>
+	 		  	</div>
+
+	 		  	<h4>Color</h4>
+	 		  	<div class="list-item Color-input" ng-repeat="item in color_attr">
+	 		  	<p style="display: none">{{a = item["attribute_id"]}}	  		</p>
+		 		  	<ion-checkbox  ng-model='order[a]' ng-change="format()" >{{item["attribute_name"]}} </ion-checkbox>
+
+	 						
+	 		  	</div>
+
+
+	 		  	<h4>Number</h4>
+	 		  	<div class="list-item  Number-input" ng-repeat="item in number_attr">
+	 		  	<p style="display: none">{{a = item["attribute_id"]}}	  		</p>
+		 		  	<ion-checkbox  ng-model='order[a]' ng-change="format()" >{{item["attribute_name"]}} </ion-checkbox>
+
+	 		  	</div>
+	 		  </div>
+	 		</div>
+
+
+
+	 		<button ng-click="submitProduct()" class="btn">Submit
+	 		</button>
+	 	</div>
+	 	<div>
+	 		<br>
+	 		<br>
+	 		<br>
+	 		<br>
+	 	</div>
+  </ion-content>
+ </ion-view>
+
+
+
+
+<ion-tabs class="tabs-icon-top tabs-color-active-positive">
+
+  <!-- Dashboard Tab -->
+  <ion-tab title="DashBoard" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" href="#/tab/dash">
+  </ion-tab>
+
+  <!-- Chats Tab -->
+  <ion-tab title="AddProduct" icon-off="ion-ios-chatboxes-outline" icon-on="ion-ios-chatboxes" href="#/addproduct">
+    
+  </ion-tab>
+
+  <!-- Account Tab -->
+  <ion-tab title="LogOut" icon-off="ion-log-out" icon-on="ion-log-out" href="#/tab/account">
+
+  </ion-tab>
+
+
+</ion-tabs>

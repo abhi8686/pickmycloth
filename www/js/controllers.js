@@ -2,7 +2,7 @@ angular.module('starter.controllers', [])
 
 .controller('DashCtrl', function($scope, $http, $httpParamSerializerJQLike) {
   $scope.init = function(){
-    $http.get("http://pickmycloth.com/api/dashboarddata" ) 
+    $http.get("https://pickmycloth.com/api/dashboarddata" ) 
     .success(function (data, status, headers, config) {
       $scope.categories = data["categories"]
       $scope.products = data["products"]
@@ -23,7 +23,7 @@ angular.module('starter.controllers', [])
 .controller('productsCtrl', function($scope, $http) {
 
   $scope.userId = window.localStorage.getItem("UserId")
-  $http.post("http://pickmycloth.com/api/manageproducts", { "adminid" : $scope.userId} ) 
+  $http.post("https://pickmycloth.com/api/manageproducts", { "adminid" : $scope.userId} ) 
   .success(function (data, status, headers, config) {
     // console.log(data)
     $scope.products = data["data"]
@@ -34,11 +34,11 @@ angular.module('starter.controllers', [])
   $scope.attributes_data = {}
   $scope.images = []
   $scope.selected_category = 0
-  $http.post("http://pickmycloth.com/api/attributegroups", { "adminid" : $scope.userId} ) 
+  $http.post("https://pickmycloth.com/api/attributegroups", { "adminid" : $scope.userId} ) 
   .success(function (data, status, headers, config) {
     $.each(data["data"], function(i, j ){
       console.log(j)
-       $http.post("http://pickmycloth.com/api/attributeslist", { "attributegroups_id" : j["attributegroups_id"]} ) 
+       $http.post("https://pickmycloth.com/api/attributeslist", { "attributegroups_id" : j["attributegroups_id"]} ) 
       .success(function (data, status, headers, config) {
         if(j["attributegroups_name"] == "Number")
         {
@@ -54,7 +54,7 @@ angular.module('starter.controllers', [])
     })
   });
 
-  $http.get("http://pickmycloth.com/api/maincategories" ) 
+  $http.get("https://pickmycloth.com/api/maincategories" ) 
   .success(function (data, status, headers, config) {
       $scope.main_category = data["data"]
   })
@@ -63,11 +63,14 @@ angular.module('starter.controllers', [])
   $scope.imageUpload = function (event) {
       var input = event.target;
       if (input.files && input.files[0]) {
+        $scope.images = []
         $(input.files).each(function () {
             var reader = new FileReader();
             reader.readAsDataURL(this);
             reader.onload = function (e) {
-            $scope.images = $scope.images + [ e.target.result]
+            $scope.images.push(e.target.result)
+            console.log($scope.images)
+            // console.log(e.target.result)
               $("#previewImg").append("<img class='thumb' src='" + e.target.result + "'>");
             }
         });
@@ -76,12 +79,21 @@ angular.module('starter.controllers', [])
   $scope.submitProduct = function(){
 
     $scope.userId = window.localStorage.getItem("UserId")
+    // if($scope.set_ssscategory == "" ){
+      
+    // }
     $scope.category  = "" + $scope.category_s  + ", " + $scope.category_ss +"," + $scope.set_ssscategory
-    $scope.images_string = ""
+    // $scope.images_string = ""
     // console.log($scope.images_string)
-    $scope.oredrs = ""
+    $scope.oredrs = ''
     $.each($scope.modifiedOrder, function( index, value ) {
-      $scope.oredrs = $scope.oredrs + "," + value
+      if($scope.oredrs == ''){
+$scope.oredrs =  value
+      }
+      else{
+        $scope.oredrs = $scope.oredrs + "," + value
+      }
+      
     });
     params = {
               "name" : "Admin",
@@ -93,26 +105,33 @@ angular.module('starter.controllers', [])
               "orginal_price" : this.original_price, 
               "productcode" : Math.floor((Math.random() * 10000) + 1),
               "measurements" : "yes",
-              "bulkupload" : "yes", 
+              "bulkupload" : "no", 
               "category_id" : $scope.category,
               "attributegroups_id" : "1,4,5",
               "attribute_id" : $scope.oredrs,
-              "product_image" : $scope.images_string
+              "product_image" : $scope.images
              }
     // console.log(pa/rams)
-    $http.post("http://pickmycloth.com/api/addproduct", params) 
+    $http.post("https://pickmycloth.com/api/addproduct", params)
 
     .success(function (data, status, headers, config) {
       console.log(params)
       console.log(data)
     });
+    // $.ajax({
+    //   type: "POST",
+    //   url: "https://pickmycloth.com/api/addproduct",
+    //   data: params,
+    //   // success: success,
+    //   // dataType: dataType
+    // });
   }
   $scope.get_subcategories = function(e){
     $scope.category_s = e.item["category_id"]
     var paramsVal={ 
         "category_id" : e.item["category_id"]
     };
-      $http.post("http://pickmycloth.com/api/subcategories?", paramsVal) 
+      $http.post("https://pickmycloth.com/api/subcategories?", paramsVal) 
       .success(function (data, status, headers, config) {
           $scope.sub_category = data["data"]
       })
@@ -125,7 +144,7 @@ angular.module('starter.controllers', [])
     var paramsVal={ 
         "category_id" : e.item["category_id"]
     };
-      $http.post("http://pickmycloth.com/api/subcategories?", paramsVal) 
+      $http.post("https://pickmycloth.com/api/subcategories?", paramsVal) 
       .success(function (data, status, headers, config) {
           $scope.ss_category = data["data"]    
       })
@@ -156,10 +175,13 @@ angular.module('starter.controllers', [])
         "username" : $scope.data.username,
         "password" : $scope.data.password  
     };
+    var headers = {
+      
+    }
 
-    $http.post("http://pickmycloth.com/api/adminlogin", paramsVal ) 
+    $http.post("https://pickmycloth.com/api/adminlogin", paramsVal ) 
     .success(function (data, status, headers, config) {
-      // console.log(data)
+      console.log(data)
         if(data.response == "1"){
            window.localStorage.setItem("loggedIn", "1");
            window.localStorage.setItem("UserId",data["data"]["userid"] );

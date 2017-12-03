@@ -5,9 +5,9 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic', 'ngCordova',  'starter.controllers', 'starter.services'])
 
-.run(function($ionicPlatform, $rootScope, $http, $location) {
+.run(function($ionicPlatform, $rootScope, $http, $location ) {
   $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
 
   $ionicPlatform.ready(function() {
@@ -39,6 +39,19 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     abstract: true,
     templateUrl: 'templates/tabs.html'
   })
+  .state('product', {
+    url: 'product/:id',
+    templateUrl: 'templates/product.html',
+    controller: function ($stateParams) {
+      console.log($stateParams);
+    }
+  })
+  .state('addproduct', {
+    url: '/addproduct',
+    templateUrl: 'templates/addProduct.html',
+    controller: 'AddProductCtrl'
+  })
+
 
   // Each tab has its own nav history stack:
   .state('login', {
@@ -75,7 +88,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         }
       }
     })
-
+  .state('products', {
+    url: '/products',
+    templateUrl: 'templates/products.html',
+    controller: 'productsCtrl'
+  })
   .state('tab.account', {
     url: '/account',
     views: {
@@ -87,6 +104,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/login');
+  $urlRouterProvider.otherwise('/addproduct');
 
 });

@@ -1,0 +1,44 @@
+<ion-view view-title="Chats">
+  <ion-content>
+  	<div class="padding ">
+	  	<ion-list>
+  		  <ion-item ng-repeat="i in products">
+						<div class="product_container">
+							<div class="card">
+							  <div class="item item-image">
+							    <img ng-src="{{i.product_image}}" style="max-height: 300px;">
+							  </div>
+							  <div style="color: #000 !important">Product Price: {{i.productprice}}</div>
+							  <div style="color: #000 !important">Product Quantity: {{i.productqty}}</div>
+							</div>
+						</div>	
+				</ion-item>
+			</ion-list>
+	  </div>
+  </ion-content>
+</ion-view>
+
+
+
+
+
+
+
+<ion-tabs class="tabs-icon-top tabs-color-active-positive">
+
+  <!-- Dashboard Tab -->
+  <ion-tab title="Status" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" href="#/tab/dash">
+  </ion-tab>
+
+  <!-- Chats Tab -->
+  <ion-tab title="Chats" icon-off="ion-ios-chatboxes-outline" icon-on="ion-ios-chatboxes" href="#/addproduct">
+    
+  </ion-tab>
+
+  <!-- Account Tab -->
+  <ion-tab title="LogOut" icon-off="ion-log-out" icon-on="ion-log-out" href="#/tab/account">
+
+  </ion-tab>
+
+
+</ion-tabs>
